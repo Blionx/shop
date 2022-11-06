@@ -1,26 +1,26 @@
-import React,{useEffect, useState} from 'react'
+import React from 'react'
+import { Home, About, Contact } from './pages'
+import Nav from './components/Nav';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
 function App() {
-  const[backendData, setBackendData] = useState([{}]);
-  useEffect(()=>{
-    fetch("/api").then(
-      response => response.json()
-    ).then(
-      data=>{
-        setBackendData(data)
-      }
-    )
-  }, [])
+  
   return (
-    <div>
-      {backendData.users == undefined ? (
-        <h1>Loading..</h1>
-      ):(
-        backendData.users.map((user, i)=>(
-          <p key={i}>{user}</p>
-        ))
-      )}
-    </div>
+    <Router>
+      <div>
+        <Nav />
+        
+        <Routes>
+          <Route path='/about' element={<About/>}/>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/contact' element={<Contact />}/>
+        </Routes>
+      </div>
+    </Router>
   )
 }
 
